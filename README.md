@@ -7,9 +7,25 @@ A crypto currency price checker bot for Microsoft Bot Framework
 - [Yarn package manager](https://yarnpkg.com/en/)
 - [Bot Framework Emulator](https://docs.botframework.com/en-us/tools/bot-framework-emulator/)
 - [Visual Studio Code IDE](https://code.visualstudio.com/)
+- [Git >= 2.12.x](https://git-scm.com/)
 
 
 ### Developer Setup Guide
+#### Step 0: Download project files
+1. Open your terminal of choice. Visual Studio Code has a built-in terminal that works great.
+2. Navigate to your project workspace
+```
+$ cd ~/<path_to_your_workspace>/
+```
+3. Clone this repo via Git command-line
+```
+$ git clone https://github.com/nwhitmont/ms-bot-framework-demo-crypto-currency-price-checker.git
+```
+4. Navigate to the bot project directory
+```
+$ cd ms-bot-framework-demo-crypto-currency-price-checker/
+```
+
 #### Step 1: Install dependencies and run the bot.
 1. Install Node modules via Yarn 
 ```
