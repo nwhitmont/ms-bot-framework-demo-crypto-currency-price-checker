@@ -48,7 +48,8 @@ http://localhost:3377/api/messages
 6. After development changes, restart the bot and reset the connection in the Emulator to test the new code
 
 ### Where to go from here?
+- [Learn by Example with these code samples](https://docs.botframework.com/en-us/node/builder/guides/examples)
+- [Check out the Bot Directory for more examples & ideas](https://bots.botframework.com/)
 - [Read the Bot Framework SDK for NodeJS docs](https://docs.botframework.com/en-us/node/builder/overview)
 - [View the Bot Framework SDK for NodeJS on GitHub](https://github.com/Microsoft/BotBuilder)
 - [Ask or answer questions on StackOverflow](https://stackoverflow.com/questions/tagged/botframework)
-- [Check out the Bot Directory for more examples & ideas](https://bots.botframework.com/)
