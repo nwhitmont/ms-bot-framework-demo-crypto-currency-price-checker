@@ -58,11 +58,11 @@ server.post('/api/messages', connector.listen());
 
 // handle generic input, hello, etc.
 bot.dialog('/', [
-    function(session) {
+    function handleDefaultPrompt(session) {
         // what type of currency to we want the bot to price check?
         builder.Prompts.text(session, 'What currency would you like to price check? Currently supported: Bitcoin, Ethereum')
     },
-    function(session, input) {
+    function handleDialogRedirect(session, input) {
         var currencySymbol = input.response;
         if(currencySymbol == 'BTC' || currencySymbol == 'btc' || currencySymbol == 'bitcoin') {
             // redirect user to the /bitcoin dialog handler
@@ -83,14 +83,19 @@ bot.dialog('/', [
 /*
     Example 1: Basic Dialog Handler (no user input)
 */
-bot.dialog('/ethereum', function(session) {
+bot.dialog('/ethereum', function ethereumDialogHandler(session) {
     // console.log('Current session object:'); // to view the full session object,
     // console.log(session); // uncomment these two lines
 
-    coinbase.getBuyPrice({'currencyPair': 'ETH-USD'}, function(err, price) {
-        var currentDateTime = moment().format('MMM Do YYYY, h:mm:ss a');
-        session.send('Current ETH buy price: $' + price.data.amount + ' ' + price.data.currency + ' at ' + currentDateTime);
-        session.endDialog();
+    coinbase.getBuyPrice({'currencyPair': 'ETH-USD'}, function ethereumGetBuyPrice(err, price) {
+        if(!err) {
+            var currentDateTime = moment().format('MMM Do YYYY, h:mm:ss a');
+            session.send(`Current ETH buy price: $${price.data.amount} ${price.data.currency} at ${currentDateTime}`);
+            session.endDialog();
+        } else {
+            session.send(COINBASE_API_ERROR_MESSAGE);
+        }
+        
     });
 });
 
@@ -98,15 +103,15 @@ bot.dialog('/ethereum', function(session) {
     Example 2: Dialog with user prompts and user input variable usage
 */
 bot.dialog('/bitcoin', [
-    function(session) {
+    function bitcoinDialogHandleIntroPrompt(session) {
         builder.Prompts.text(session, 'Select price type --> Buy or Sell?')
     },
-    function(session, input) {
+    function bitCoinDialogHandlePriceCheck(session, input) {
         var priceType = input.response;
         var currentDateTime = moment().format('MMM Do YYYY, h:mm:ss a');
 
         if(priceType == 'buy' || priceType == 'Buy') {
-            coinbase.getBuyPrice({'currencyPair': 'BTC-USD'}, function(err, price) {
+            coinbase.getBuyPrice({'currencyPair': 'BTC-USD'}, function bitcoinGetBuyPrice(err, price) {
                 if(!err) {
                     session.send(`Current BTC Buy Price: $${price.data.amount} ${price.data.currency} at ${currentDateTime}`);
                     session.beginDialog('/');
@@ -115,7 +120,7 @@ bot.dialog('/bitcoin', [
                 }
             });
         } else if(priceType == 'sell' || priceType == 'Sell') {
-            coinbase.getSellPrice({'currencyPair': 'BTC-USD'}, function(err, price) {
+            coinbase.getSellPrice({'currencyPair': 'BTC-USD'}, function bitcoinGetSellPrice(err, price) {
                 if(!err) {
                     session.send(`Current BTC Buy Price: $${price.data.amount} ${price.data.currency} at ${currentDateTime}`);
                     session.beginDialog('/')
