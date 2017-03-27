@@ -84,8 +84,8 @@ bot.dialog('/', [
     Example 1: Basic Dialog Handler (no user input)
 */
 bot.dialog('/ethereum', function(session) {
-    console.log('Current session object:');
-    console.log(session);
+    // console.log('Current session object:'); // to view the full session object,
+    // console.log(session); // uncomment these two lines
 
     coinbase.getBuyPrice({'currencyPair': 'ETH-USD'}, function(err, price) {
         var currentDateTime = moment().format('MMM Do YYYY, h:mm:ss a');
