@@ -18,10 +18,10 @@ var COINBASE_API_ERROR_MESSAGE = 'Error contacting Coinbase API. We\'re sending 
 /*
     1. INITIALIZE COINBASE API CLIENT
 */
-var Client = require('coinbase').Client;
+var CoinbaseClient = require('coinbase').Client;
 // note: API key not required for price checks
 // fill in this section if you want to buy/sell with your own account
-var client = new Client({
+var coinbase = new CoinbaseClient({
     'apiKey': 'API KEY',
     'apiSecret': 'API SECRET'
 });
@@ -84,7 +84,7 @@ bot.dialog('/', [
     Example 1: Basic Dialog Handler (no user input)
 */
 bot.dialog('/ethereum', function(session) {
-    client.getBuyPrice({'currencyPair': 'ETH-USD'}, function(err, price) {
+    coinbase.getBuyPrice({'currencyPair': 'ETH-USD'}, function(err, price) {
         var currentDateTime = moment().format('MMM Do YYYY, h:mm:ss a');
         session.send('Current ETH buy price: $' + price.data.amount + ' ' + price.data.currency + ' at ' + currentDateTime);
         session.endDialog();
@@ -103,7 +103,7 @@ bot.dialog('/bitcoin', [
         var currentDateTime = moment().format('MMM Do YYYY, h:mm:ss a');
 
         if(priceType == 'buy' || priceType == 'Buy') {
-            client.getBuyPrice({'currencyPair': 'BTC-USD'}, function(err, price) {
+            coinbase.getBuyPrice({'currencyPair': 'BTC-USD'}, function(err, price) {
                 if(!err) {
                     session.send(`Current BTC Buy Price: $${price.data.amount} ${price.data.currency} at ${currentDateTime}`);
                     session.beginDialog('/');
@@ -112,7 +112,7 @@ bot.dialog('/bitcoin', [
                 }
             });
         } else if(priceType == 'sell' || priceType == 'Sell') {
-            client.getSellPrice({'currencyPair': 'BTC-USD'}, function(err, price) {
+            coinbase.getSellPrice({'currencyPair': 'BTC-USD'}, function(err, price) {
                 if(!err) {
                     session.send(`Current BTC Buy Price: $${price.data.amount} ${price.data.currency} at ${currentDateTime}`);
                     session.beginDialog('/')
