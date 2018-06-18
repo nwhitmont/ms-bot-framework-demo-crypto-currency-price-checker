@@ -12,9 +12,13 @@
     "botbuilder": "^3.7.0",
     "coinbase": "^2.0.6",
     "moment": "^2.18.1",
-    "restify": "^4.3.0"
+    "restify": "^4.3.0",
+    "snyk": "^1.83.0"
   },
   "scripts": {
-    "start": "node priceCheckBot.js"
-  }
+    "start": "node priceCheckBot.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
