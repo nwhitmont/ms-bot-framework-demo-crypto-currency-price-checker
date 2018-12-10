@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "botbuilder": "^3.7.0",
-    "coinbase": "^2.0.6",
-    "moment": "^2.18.1",
-    "restify": "^4.3.0"
+    "coinbase": "^2.0.8",
+    "moment": "^2.19.3",
+    "restify": "^4.3.4"
   },
   "scripts": {
     "start": "node priceCheckBot.js"
